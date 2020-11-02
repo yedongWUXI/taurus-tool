@@ -1,0 +1,48 @@
+logging:
+  level:
+    com.kaituo.comparison.back: debug
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 1024
+  port: 1001
+
+spring:
+  aop:
+    proxy-target-class: true
+    auto: true
+
+
+ftp:
+  # ftp服务器的IP地址
+  url: 148.70.213.66
+  # 默认端口是21
+  port: 21
+  username: ftp_test
+  password: root1234
+  # ftp服务器存放文件的路径
+  remotePath: /home/ftp_test
+  # 本地需要上传的文件的路径
+  localDir: C:\Users\yedong\Desktop\test
+  # ftp上文件下载到本地存放的路径
+  downDir: C:\Users\yedong\Desktop\testdown
+
+#ftp:
+#  # ftp服务器的IP地址
+#  url: 172.19.246.102
+#  # 默认端口是21
+#  port: 2120
+#  username: haikang1400
+#  password: haikang1400@123
+#  # ftp服务器存放文件的路径
+#  remotePath: /data/ftp
+#  # 本地需要上传的文件的路径
+#  localDir: D:/test
+#  # ftp上文件下载到本地存放的路径
+#  downDir: D:/test
+
+
+cron:
+  getHkPicture: 0/5 * * * * *
+  getPicToFtp: 0/5 * * * * *
