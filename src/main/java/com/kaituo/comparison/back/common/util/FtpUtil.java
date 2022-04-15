@@ -53,15 +53,15 @@ public class FtpUtil {
     }
 
     /**
-     * 从ftp服务器下载文件到本地
+     * 从ftp服务器目录下载全部文件到本地
      */
-    public static boolean ftpDownload(String fileName, String ftpUrl, int ftpPort,
+    public static boolean ftpDownload(String ftpUrl, int ftpPort,
                                       String ftpUsername, String ftpPassword, String ftpRemotePath, String ftpDownDir) {
         boolean result = false;
         try {
             boolean isConnection = ftp.openConnection(ftpUrl, ftpPort, ftpUsername, ftpPassword);
             if (isConnection) {
-                boolean isDownloadOk = ftp.downLoad(fileName, ftpDownDir);
+                boolean isDownloadOk = ftp.downLoad(ftpRemotePath, ftpDownDir);
                 boolean isCreateOk = ftp.createDirectory(ftpRemotePath, ftp.mFTPClient);
                 if (isDownloadOk && isCreateOk) {
                     log.info("文件下载成功！");
@@ -96,21 +96,26 @@ public class FtpUtil {
      * @throws SocketException
      * @throws IOException
      */
-    private boolean openConnection(String host, int port, String account, String pwd)
-            throws SocketException, IOException {
+    private boolean openConnection(String host, int port, String account, String pwd) {
         mFTPClient.setControlEncoding("UTF-8");
-        mFTPClient.connect(host, port);
-
-        if (FTPReply.isPositiveCompletion(mFTPClient.getReplyCode())) {
-            mFTPClient.login(account, pwd);
+        try {
+            mFTPClient.connect(host, port);
             if (FTPReply.isPositiveCompletion(mFTPClient.getReplyCode())) {
-                System.err.println(mFTPClient.getSystemType());
-                FTPClientConfig config = new FTPClientConfig(mFTPClient.getSystemType().split(" ")[0]);
-                config.setServerLanguageCode("zh");
-                mFTPClient.configure(config);
-                return true;
+                mFTPClient.login(account, pwd);
+                if (FTPReply.isPositiveCompletion(mFTPClient.getReplyCode())) {
+                    System.err.println(mFTPClient.getSystemType());
+                    FTPClientConfig config = new FTPClientConfig(mFTPClient.getSystemType().split(" ")[0]);
+                    config.setServerLanguageCode("zh");
+                    mFTPClient.configure(config);
+                    return true;
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
+
+
         disConnection();
         return false;
     }

@@ -16,33 +16,40 @@ spring:
 
 ftp:
   # ftp服务器的IP地址
-  url: 148.70.213.66
+  url: 61.160.74.131
   # 默认端口是21
-  port: 21
-  username: ftp_test
-  password: root1234
+  port: 10021
+  username: kaituo110
+  password: Kaituo@110
   # ftp服务器存放文件的路径
-  remotePath: /home/ftp_test
+  remotePath: /lsyw/kt/fkdb/110
   # 本地需要上传的文件的路径
-  localDir: C:\Users\yedong\Desktop\test
+  localDir: D:\yuying\Records
   # ftp上文件下载到本地存放的路径
   downDir: C:\Users\yedong\Desktop\testdown
 
+
+#
 #ftp:
 #  # ftp服务器的IP地址
-#  url: 172.19.246.102
+#  url: 148.70.213.66
 #  # 默认端口是21
-#  port: 2120
-#  username: haikang1400
-#  password: haikang1400@123
+#  port: 21
+#  username: ftp_test
+#  password: root1234
 #  # ftp服务器存放文件的路径
-#  remotePath: /data/ftp
+#  remotePath: /home/ftp_test
 #  # 本地需要上传的文件的路径
-#  localDir: D:/test
+#  localDir: C:\Users\yedong\Desktop\test
 #  # ftp上文件下载到本地存放的路径
-#  downDir: D:/test
+#  downDir: C:\Users\yedong\Desktop\testdown
+#
+#
+
+
 
 
 cron:
   getHkPicture: 0/5 * * * * *
   getPicToFtp: 0/5 * * * * *
+  getYuyinToFtp: 0 */2 * * * ?
